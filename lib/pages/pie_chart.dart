@@ -40,7 +40,7 @@ class PieChart extends StatelessWidget {
       customPaints.add(
         CustomPaint(
           child: Center(),
-          foregroundPainter: _DrawArc(
+          painter: _DrawArc(
               chartWidth: chartWidth,
               color: pieChartData.color,
               startRadian: startRadian,
@@ -54,7 +54,7 @@ class PieChart extends StatelessWidget {
     customPaints.add(
       CustomPaint(
         child: Center(),
-        foregroundPainter: _DrawArc(
+        painter: _DrawArc(
             chartWidth: chartWidth * 1.3,
             color: selectedColor.withOpacity(0.2),
             startRadian: selectedStartRadian,
