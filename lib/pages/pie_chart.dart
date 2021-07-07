@@ -10,17 +10,66 @@ class PieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: _PieChart(chartWidth: chartWidth, datas: datas),
+    return Stack(
+      children: _getPaints(context),
     );
+  }
+
+  List<Widget> _getPaints(BuildContext context) {
+    List<Widget> customPaints = [];
+
+    double total = 0;
+    datas.forEach((data) => total += data.value);
+
+    double startRadian = -pi / 2;
+
+    for (int index = 0; index < datas.length; index++) {
+      final PieChartData pieChartData = datas[index];
+      final double sweepRadian = pieChartData.value / total * 2 * pi;
+
+      customPaints.add(
+        CustomPaint(
+          child: Center(),
+          foregroundPainter: _DrawArc(
+              chartWidth: chartWidth,
+              color: pieChartData.color,
+              startRadian: startRadian,
+              sweepRadian: sweepRadian),
+        ),
+      );
+
+      startRadian += sweepRadian;
+    }
+
+    final PieChartData pieChartData = datas[0];
+    final double sweepRadian = (pieChartData.value / total * 2 * pi) * 1.08;
+
+    customPaints.add(
+      CustomPaint(
+        child: Center(),
+        foregroundPainter: _DrawArc(
+            chartWidth: chartWidth * 1.3,
+            color: pieChartData.color.withOpacity(0.2),
+            startRadian: (pi / 2) * -1.045,
+            sweepRadian: sweepRadian),
+      ),
+    );
+
+    return customPaints;
   }
 }
 
-class _PieChart extends CustomPainter {
-  final List<PieChartData> datas;
+class _DrawArc extends CustomPainter {
   final double chartWidth;
+  final Color color;
+  final double startRadian;
+  final double sweepRadian;
 
-  _PieChart({required this.chartWidth, required this.datas});
+  _DrawArc(
+      {required this.chartWidth,
+      required this.color,
+      required this.startRadian,
+      required this.sweepRadian});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -31,26 +80,15 @@ class _PieChart extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = chartWidth / 2;
 
-    double total = 0;
-    datas.forEach((data) => total += data.value);
+    paint.color = color;
 
-    double startRadian = -pi / 2;
-
-    for (int index = 0; index < datas.length; index++) {
-      final PieChartData pieChartData = datas[index];
-      final sweepRadian = pieChartData.value / total * 2 * pi;
-      paint.color = pieChartData.color;
-
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        startRadian,
-        sweepRadian,
-        false,
-        paint,
-      );
-
-      startRadian += sweepRadian;
-    }
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      startRadian,
+      sweepRadian,
+      false,
+      paint,
+    );
   }
 
   @override
