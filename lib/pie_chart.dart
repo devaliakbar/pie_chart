@@ -26,6 +26,7 @@ class PieChart extends StatelessWidget {
             datas: datas,
             chartWidth: chartWidth,
             selectedIndex: selectedIndex,
+            onSelectedIndexChange: onSelectedIndexChange,
             context: context),
       ),
     );
@@ -48,6 +49,8 @@ class _Draw extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    final TouchyCanvas myCanvas = TouchyCanvas(context, canvas);
+
     Offset center = Offset(size.width / 2, size.height / 2);
     double radius = min(size.width / 2, size.height / 2);
 
@@ -82,8 +85,6 @@ class _Draw extends CustomPainter {
         paint.shader = null;
         paint.color = pieChartData.color;
       }
-
-      final TouchyCanvas myCanvas = TouchyCanvas(context, canvas);
 
       myCanvas.drawArc(Rect.fromCircle(center: center, radius: radius),
           startRadian, sweepRadian, false, paint, onTapDown: (_) {
