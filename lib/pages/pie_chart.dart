@@ -56,8 +56,8 @@ class _Draw extends CustomPainter {
       ..strokeWidth = chartWidth / 2;
 
     late final double selectedStartRadian, selectedSweepRadian;
-    late final Color? selectedColor;
-    late final Gradient? selectedGradient;
+    late final Color selectedColor;
+    late final Color? selectedSecondaryColor;
 
     double total = 0;
     datas.forEach((data) => total += data.value);
@@ -71,15 +71,16 @@ class _Draw extends CustomPainter {
         selectedStartRadian = startRadian;
         selectedSweepRadian = sweepRadian;
         selectedColor = pieChartData.color;
-        selectedGradient = pieChartData.gradient;
+        selectedSecondaryColor = pieChartData.secondaryColor;
       }
 
-      if (pieChartData.gradient != null) {
-        paint.shader = pieChartData.gradient!
+      if (pieChartData.secondaryColor != null) {
+        paint.shader = LinearGradient(
+                colors: [pieChartData.color, pieChartData.secondaryColor!])
             .createShader(Rect.fromCircle(center: center, radius: radius));
       } else {
         paint.shader = null;
-        paint.color = pieChartData.color!;
+        paint.color = pieChartData.color;
       }
 
       final TouchyCanvas myCanvas = TouchyCanvas(context, canvas);
@@ -96,12 +97,16 @@ class _Draw extends CustomPainter {
 
     paint.strokeWidth = (chartWidth / 2) * 1.3;
 
-    if (selectedGradient != null) {
-      paint.shader = selectedGradient
-          .createShader(Rect.fromCircle(center: center, radius: radius));
+    if (selectedSecondaryColor != null) {
+      paint.shader = LinearGradient(colors: [
+        selectedColor.withOpacity(0.2),
+        selectedSecondaryColor.withOpacity(0.2)
+      ]).createShader(
+        Rect.fromCircle(center: center, radius: radius),
+      );
     } else {
       paint.shader = null;
-      paint.color = selectedColor!.withOpacity(0.2);
+      paint.color = selectedColor.withOpacity(0.2);
     }
 
     canvas.drawArc(
@@ -120,10 +125,12 @@ class _Draw extends CustomPainter {
 class PieChartData {
   final String name;
   final double value;
-  final Color? color;
-  final Gradient? gradient;
+  final Color color;
+  final Color? secondaryColor;
 
   PieChartData(
-      {required this.name, required this.value, this.color, this.gradient})
-      : assert(color != null || gradient != null);
+      {required this.name,
+      required this.value,
+      required this.color,
+      this.secondaryColor});
 }

@@ -42,16 +42,14 @@ class _PieChartExampleState extends State<PieChartExample> {
                       PieChartData(
                         name: "A",
                         value: 40,
-                        gradient: LinearGradient(
-                          colors: [Colors.red, Colors.yellow],
-                        ),
+                        color: Colors.red,
+                        secondaryColor: Colors.yellow,
                       ),
                       PieChartData(
                         name: "A",
                         value: 30,
-                        gradient: LinearGradient(
-                          colors: [Colors.green, Colors.pink],
-                        ),
+                        color: Colors.green,
+                        secondaryColor: Colors.pink,
                       )
                     ],
                   ),
