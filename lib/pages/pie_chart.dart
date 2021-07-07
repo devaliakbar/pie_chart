@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:touchable/touchable.dart';
 
 class PieChart extends StatelessWidget {
   final List<PieChartData> datas;
@@ -12,10 +13,15 @@ class PieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      child: Center(),
-      painter: _Draw(
-          datas: datas, chartWidth: chartWidth, selectedIndex: selectedIndex),
+    return CanvasTouchDetector(
+      builder: (context) => CustomPaint(
+        child: Center(),
+        painter: _Draw(
+            datas: datas,
+            chartWidth: chartWidth,
+            selectedIndex: selectedIndex,
+            context: context),
+      ),
     );
   }
 }
@@ -24,11 +30,13 @@ class _Draw extends CustomPainter {
   final List<PieChartData> datas;
   final double chartWidth;
   final int selectedIndex;
+  final BuildContext context;
 
   _Draw(
       {required this.chartWidth,
       required this.datas,
-      required this.selectedIndex});
+      required this.selectedIndex,
+      required this.context});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -67,13 +75,12 @@ class _Draw extends CustomPainter {
         paint.color = pieChartData.color1;
       }
 
-      canvas.drawArc(
-        Rect.fromCircle(center: center, radius: radius),
-        startRadian,
-        sweepRadian,
-        false,
-        paint,
-      );
+      final TouchyCanvas myCanvas = TouchyCanvas(context, canvas);
+
+      myCanvas.drawArc(Rect.fromCircle(center: center, radius: radius),
+          startRadian, sweepRadian, false, paint, onTapDown: (_) {
+        print("sele $index");
+      });
 
       startRadian += sweepRadian;
     }
