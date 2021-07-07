@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 class PieChart extends StatelessWidget {
   final List<PieChartData> datas;
   final double chartWidth;
+  final int selectedIndex;
 
-  PieChart({required this.chartWidth, required this.datas});
+  PieChart(
+      {required this.chartWidth, required this.datas, this.selectedIndex = 2});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +20,22 @@ class PieChart extends StatelessWidget {
   List<Widget> _getPaints(BuildContext context) {
     List<Widget> customPaints = [];
 
+    late final double selectedStartRadian, selectedSweepRadian;
+    late final Color selectedColor;
+
     double total = 0;
     datas.forEach((data) => total += data.value);
-
     double startRadian = -pi / 2;
 
     for (int index = 0; index < datas.length; index++) {
       final PieChartData pieChartData = datas[index];
       final double sweepRadian = pieChartData.value / total * 2 * pi;
+
+      if (selectedIndex == index) {
+        selectedStartRadian = startRadian;
+        selectedSweepRadian = sweepRadian;
+        selectedColor = pieChartData.color;
+      }
 
       customPaints.add(
         CustomPaint(
@@ -41,17 +51,14 @@ class PieChart extends StatelessWidget {
       startRadian += sweepRadian;
     }
 
-    final PieChartData pieChartData = datas[0];
-    final double sweepRadian = (pieChartData.value / total * 2 * pi) * 1.08;
-
     customPaints.add(
       CustomPaint(
         child: Center(),
         foregroundPainter: _DrawArc(
             chartWidth: chartWidth * 1.3,
-            color: pieChartData.color.withOpacity(0.2),
-            startRadian: (pi / 2) * -1.045,
-            sweepRadian: sweepRadian),
+            color: selectedColor.withOpacity(0.2),
+            startRadian: selectedStartRadian,
+            sweepRadian: selectedSweepRadian),
       ),
     );
 
