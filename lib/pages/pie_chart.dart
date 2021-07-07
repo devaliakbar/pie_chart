@@ -8,17 +8,36 @@ class PieChart extends StatelessWidget {
   final int selectedIndex;
 
   PieChart(
-      {required this.chartWidth, required this.datas, this.selectedIndex = 2});
+      {required this.chartWidth, required this.datas, this.selectedIndex = 0});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: _getPaints(context),
+    return CustomPaint(
+      child: Center(),
+      painter: _Draw(
+          datas: datas, chartWidth: chartWidth, selectedIndex: selectedIndex),
     );
   }
+}
 
-  List<Widget> _getPaints(BuildContext context) {
-    List<Widget> customPaints = [];
+class _Draw extends CustomPainter {
+  final List<PieChartData> datas;
+  final double chartWidth;
+  final int selectedIndex;
+
+  _Draw(
+      {required this.chartWidth,
+      required this.datas,
+      required this.selectedIndex});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Offset center = Offset(size.width / 2, size.height / 2);
+    double radius = min(size.width / 2, size.height / 2);
+
+    var paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = chartWidth / 2;
 
     late final double selectedStartRadian, selectedSweepRadian;
     late final Color selectedColor1;
@@ -39,71 +58,42 @@ class PieChart extends StatelessWidget {
         selectedColor2 = pieChartData.color2;
       }
 
-      customPaints.add(
-        CustomPaint(
-          child: Center(),
-          painter: _DrawArc(
-              chartWidth: chartWidth,
-              color1: pieChartData.color1,
-              color2: pieChartData.color2,
-              startRadian: startRadian,
-              sweepRadian: sweepRadian),
-        ),
+      if (pieChartData.color2 != null) {
+        paint.shader =
+            LinearGradient(colors: [pieChartData.color1, pieChartData.color2!])
+                .createShader(Rect.fromCircle(center: center, radius: radius));
+      } else {
+        paint.shader = null;
+        paint.color = pieChartData.color1;
+      }
+
+      canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius),
+        startRadian,
+        sweepRadian,
+        false,
+        paint,
       );
 
       startRadian += sweepRadian;
     }
 
-    customPaints.add(
-      CustomPaint(
-        child: Center(),
-        painter: _DrawArc(
-            chartWidth: chartWidth * 1.3,
-            color1: selectedColor1.withOpacity(0.2),
-            color2: selectedColor2?.withOpacity(0.2),
-            startRadian: selectedStartRadian,
-            sweepRadian: selectedSweepRadian),
-      ),
-    );
+    paint.strokeWidth = (chartWidth / 2) * 1.3;
 
-    return customPaints;
-  }
-}
-
-class _DrawArc extends CustomPainter {
-  final double chartWidth;
-  final Color color1;
-  final Color? color2;
-  final double startRadian;
-  final double sweepRadian;
-
-  _DrawArc(
-      {required this.chartWidth,
-      required this.color1,
-      required this.color2,
-      required this.startRadian,
-      required this.sweepRadian});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Offset center = Offset(size.width / 2, size.height / 2);
-    double radius = min(size.width / 2, size.height / 2);
-
-    var paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = chartWidth / 2;
-
-    if (color2 != null) {
-      paint.shader = LinearGradient(colors: [color1, color2!])
-          .createShader(Rect.fromCircle(center: center, radius: radius));
+    if (selectedColor2 != null) {
+      paint.shader = LinearGradient(colors: [
+        selectedColor1.withOpacity(0.2),
+        selectedColor2.withOpacity(0.2)
+      ]).createShader(Rect.fromCircle(center: center, radius: radius));
     } else {
-      paint.color = color1;
+      paint.shader = null;
+      paint.color = selectedColor1.withOpacity(0.2);
     }
 
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
-      startRadian,
-      sweepRadian,
+      selectedStartRadian,
+      selectedSweepRadian,
       false,
       paint,
     );
