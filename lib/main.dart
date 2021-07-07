@@ -1,4 +1,4 @@
-import 'package:chart/pages/pie_chart_example.dart';
+import 'package:chart/pie_chart_example.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -1,4 +1,4 @@
-import 'package:chart/pages/pie_chart.dart';
+import 'package:chart/pie_chart.dart';
 import 'package:flutter/material.dart';
 
 class PieChartExample extends StatefulWidget {
@@ -7,7 +7,7 @@ class PieChartExample extends StatefulWidget {
 }
 
 class _PieChartExampleState extends State<PieChartExample> {
-  int currentIndex = 0;
+  int currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
