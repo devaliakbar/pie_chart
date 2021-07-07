@@ -3,13 +3,19 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:touchable/touchable.dart';
 
+typedef OnSelectedIndexChange(int newIndex);
+
 class PieChart extends StatelessWidget {
   final List<PieChartData> datas;
   final double chartWidth;
   final int selectedIndex;
+  final OnSelectedIndexChange? onSelectedIndexChange;
 
   PieChart(
-      {required this.chartWidth, required this.datas, this.selectedIndex = 0});
+      {required this.chartWidth,
+      required this.datas,
+      this.selectedIndex = 0,
+      this.onSelectedIndexChange});
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +37,14 @@ class _Draw extends CustomPainter {
   final double chartWidth;
   final int selectedIndex;
   final BuildContext context;
+  final OnSelectedIndexChange? onSelectedIndexChange;
 
   _Draw(
       {required this.chartWidth,
       required this.datas,
       required this.selectedIndex,
-      required this.context});
+      required this.context,
+      this.onSelectedIndexChange});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -78,7 +86,9 @@ class _Draw extends CustomPainter {
 
       myCanvas.drawArc(Rect.fromCircle(center: center, radius: radius),
           startRadian, sweepRadian, false, paint, onTapDown: (_) {
-        print("sele $index");
+        if (onSelectedIndexChange != null) {
+          onSelectedIndexChange!(index);
+        }
       });
 
       startRadian += sweepRadian;

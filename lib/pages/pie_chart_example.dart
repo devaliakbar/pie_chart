@@ -1,7 +1,14 @@
 import 'package:chart/pages/pie_chart.dart';
 import 'package:flutter/material.dart';
 
-class PieChartExample extends StatelessWidget {
+class PieChartExample extends StatefulWidget {
+  @override
+  _PieChartExampleState createState() => _PieChartExampleState();
+}
+
+class _PieChartExampleState extends State<PieChartExample> {
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +26,12 @@ class PieChartExample extends StatelessWidget {
                   width: 200,
                   height: 200,
                   child: PieChart(
+                    selectedIndex: currentIndex,
+                    onSelectedIndexChange: (int newIndex) {
+                      setState(() {
+                        currentIndex = newIndex;
+                      });
+                    },
                     chartWidth: 100,
                     datas: [
                       PieChartData(
