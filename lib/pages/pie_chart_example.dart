@@ -24,18 +24,22 @@ class PieChartExample extends StatelessWidget {
                       PieChartData(
                         name: "A",
                         value: 30,
-                        color1: Colors.blue,
+                        color: Colors.blue,
                       ),
                       PieChartData(
-                          name: "A",
-                          value: 40,
-                          color1: Colors.red,
-                          color2: Colors.yellow),
+                        name: "A",
+                        value: 40,
+                        gradient: LinearGradient(
+                          colors: [Colors.red, Colors.yellow],
+                        ),
+                      ),
                       PieChartData(
-                          name: "A",
-                          value: 30,
-                          color1: Colors.green,
-                          color2: Colors.pink)
+                        name: "A",
+                        value: 30,
+                        gradient: LinearGradient(
+                          colors: [Colors.green, Colors.pink],
+                        ),
+                      )
                     ],
                   ),
                 ),

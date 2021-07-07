@@ -48,8 +48,8 @@ class _Draw extends CustomPainter {
       ..strokeWidth = chartWidth / 2;
 
     late final double selectedStartRadian, selectedSweepRadian;
-    late final Color selectedColor1;
-    late final Color? selectedColor2;
+    late final Color? selectedColor;
+    late final Gradient? selectedGradient;
 
     double total = 0;
     datas.forEach((data) => total += data.value);
@@ -62,17 +62,16 @@ class _Draw extends CustomPainter {
       if (selectedIndex == index) {
         selectedStartRadian = startRadian;
         selectedSweepRadian = sweepRadian;
-        selectedColor1 = pieChartData.color1;
-        selectedColor2 = pieChartData.color2;
+        selectedColor = pieChartData.color;
+        selectedGradient = pieChartData.gradient;
       }
 
-      if (pieChartData.color2 != null) {
-        paint.shader =
-            LinearGradient(colors: [pieChartData.color1, pieChartData.color2!])
-                .createShader(Rect.fromCircle(center: center, radius: radius));
+      if (pieChartData.gradient != null) {
+        paint.shader = pieChartData.gradient!
+            .createShader(Rect.fromCircle(center: center, radius: radius));
       } else {
         paint.shader = null;
-        paint.color = pieChartData.color1;
+        paint.color = pieChartData.color!;
       }
 
       final TouchyCanvas myCanvas = TouchyCanvas(context, canvas);
@@ -87,14 +86,12 @@ class _Draw extends CustomPainter {
 
     paint.strokeWidth = (chartWidth / 2) * 1.3;
 
-    if (selectedColor2 != null) {
-      paint.shader = LinearGradient(colors: [
-        selectedColor1.withOpacity(0.2),
-        selectedColor2.withOpacity(0.2)
-      ]).createShader(Rect.fromCircle(center: center, radius: radius));
+    if (selectedGradient != null) {
+      paint.shader = selectedGradient
+          .createShader(Rect.fromCircle(center: center, radius: radius));
     } else {
       paint.shader = null;
-      paint.color = selectedColor1.withOpacity(0.2);
+      paint.color = selectedColor!.withOpacity(0.2);
     }
 
     canvas.drawArc(
@@ -113,12 +110,10 @@ class _Draw extends CustomPainter {
 class PieChartData {
   final String name;
   final double value;
-  final Color color1;
-  final Color? color2;
+  final Color? color;
+  final Gradient? gradient;
 
   PieChartData(
-      {required this.name,
-      required this.value,
-      required this.color1,
-      this.color2});
+      {required this.name, required this.value, this.color, this.gradient})
+      : assert(color != null || gradient != null);
 }
