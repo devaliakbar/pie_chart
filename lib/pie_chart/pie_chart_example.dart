@@ -1,4 +1,4 @@
-import 'package:chart/pie_chart.dart';
+import 'package:chart/pie_chart/pie_chart_widget.dart';
 import 'package:flutter/material.dart';
 
 class PieChartExample extends StatefulWidget {
@@ -25,7 +25,7 @@ class _PieChartExampleState extends State<PieChartExample> {
                 child: Container(
                   width: 200,
                   height: 200,
-                  child: PieChart(
+                  child: PieChartWidget(
                     selectedIndex: currentIndex,
                     onSelectedIndexChange: (int newIndex) {
                       setState(() {

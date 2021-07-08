@@ -5,13 +5,13 @@ import 'package:touchable/touchable.dart';
 
 typedef OnSelectedIndexChange(int newIndex);
 
-class PieChart extends StatelessWidget {
+class PieChartWidget extends StatelessWidget {
   final List<PieChartData> datas;
   final double chartWidth;
   final int selectedIndex;
   final OnSelectedIndexChange? onSelectedIndexChange;
 
-  PieChart(
+  PieChartWidget(
       {required this.chartWidth,
       required this.datas,
       this.selectedIndex = 0,
