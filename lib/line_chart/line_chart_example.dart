@@ -21,62 +21,61 @@ class LineChartExample extends StatelessWidget {
                   height: 100,
                   child: LineChartWidget(
                     data: [
-                      LineChartValue(date: DateTime.now(), value: 10000),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 1),
                           ),
-                          value: 15000),
+                          value: 0),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 2),
                           ),
-                          value: 13000),
+                          value: 3),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 3),
                           ),
-                          value: 18000),
+                          value: 0),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 4),
                           ),
-                          value: 12000),
+                          value: 3),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 5),
                           ),
-                          value: 20000),
+                          value: 1),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 6),
                           ),
-                          value: 25000),
+                          value: 8),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 7),
                           ),
-                          value: 22000),
+                          value: 2),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 8),
                           ),
-                          value: 30000),
+                          value: 6),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 9),
                           ),
-                          value: 28000),
+                          value: 9),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 10),
                           ),
-                          value: 15000),
+                          value: 6),
                       LineChartValue(
                           date: DateTime.now().add(
                             Duration(days: 11),
                           ),
-                          value: 10000),
+                          value: 9),
                     ],
                   ),
                 ),
