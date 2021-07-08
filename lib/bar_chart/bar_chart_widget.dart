@@ -17,15 +17,15 @@ class BarChartWidget extends StatelessWidget {
       this.barWidth,
       this.spacing,
       this.barRadius}) {
-    final List<double> _dataArr = [];
+    final List<double> dataArr = [];
 
     double min = data[0].value;
     double max = data[0].value;
 
-    _dataArr.add(data[0].value);
+    dataArr.add(data[0].value);
 
     for (int index = 1; index < data.length; index++) {
-      _dataArr.add(data[index].value);
+      dataArr.add(data[index].value);
 
       if (min > data[index].value) {
         min = data[index].value;
@@ -36,7 +36,7 @@ class BarChartWidget extends StatelessWidget {
       }
     }
 
-    _data = _dataArr.map((e) => _reMap(e, inMin: min, inMax: max)).toList();
+    _data = dataArr.map((e) => _reMap(e, inMin: min, inMax: max)).toList();
   }
 
   @override
