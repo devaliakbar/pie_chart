@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 
 class BarChartWidget extends StatelessWidget {
   final Color barColor;
-  BarChartWidget({this.barColor = Colors.grey});
+  final double? height;
+  final double? barWidth;
+  final double? spacing;
+  final double? barRadius;
+  BarChartWidget(
+      {this.barColor = Colors.grey,
+      this.height,
+      this.barWidth,
+      this.spacing,
+      this.barRadius});
 
   final List<double> data = [
     0.1,
@@ -26,13 +35,13 @@ class BarChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double _blockSizeVertical = MediaQuery.of(context).size.height / 100;
-    double _containerHeight = 11 * _blockSizeVertical;
+    double _containerHeight = height ?? 11 * _blockSizeVertical;
 
     final double _blockSizeHorizontal = MediaQuery.of(context).size.width / 100;
 
-    final double _barWidth = 0.7 * _blockSizeHorizontal;
+    final double _barWidth = barWidth ?? 0.7 * _blockSizeHorizontal;
 
-    final double _spacing = 1.5 * _blockSizeHorizontal;
+    final double _spacing = spacing ?? 1.5 * _blockSizeHorizontal;
 
     return Container(
       height: _containerHeight,
@@ -51,7 +60,7 @@ class BarChartWidget extends StatelessWidget {
                 width: _barWidth,
                 decoration: BoxDecoration(
                   color: barColor,
-                  borderRadius: BorderRadius.circular(_barWidth),
+                  borderRadius: BorderRadius.circular(barRadius ?? _barWidth),
                 ),
               )
             ],
