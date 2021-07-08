@@ -26,11 +26,11 @@ class Menu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chart"),
+        title: const Text("Chart"),
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(
             children: [
               ElevatedButton(
@@ -40,7 +40,7 @@ class Menu extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => PieChartExample()),
                   );
                 },
-                child: Text("Pie Chart"),
+                child: const Text("Pie Chart"),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -51,7 +51,7 @@ class Menu extends StatelessWidget {
                     ),
                   );
                 },
-                child: Text("Line Chart"),
+                child: const Text("Line Chart"),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -62,7 +62,7 @@ class Menu extends StatelessWidget {
                     ),
                   );
                 },
-                child: Text("Bar Chart"),
+                child: const Text("Bar Chart"),
               )
             ],
           ),

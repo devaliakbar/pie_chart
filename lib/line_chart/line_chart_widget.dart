@@ -47,7 +47,7 @@ class LineChartWidget extends StatelessWidget {
   }
 
   List<FlSpot> _getFlSpot() {
-    List<FlSpot> returnSpot = [];
+    final List<FlSpot> returnSpot = [];
     double indexForFlSpot = 0;
     for (int index = 0; index < data.length; index++) {
       if (index == 0) {

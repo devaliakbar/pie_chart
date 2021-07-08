@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:touchable/touchable.dart';
 
-typedef OnSelectedIndexChange(int newIndex);
+typedef OnSelectedIndexChange = Function(int newIndex);
 
 class PieChartWidget extends StatelessWidget {
   final List<PieChartData> datas;
@@ -11,7 +11,7 @@ class PieChartWidget extends StatelessWidget {
   final int selectedIndex;
   final OnSelectedIndexChange? onSelectedIndexChange;
 
-  PieChartWidget(
+  const PieChartWidget(
       {required this.chartWidth,
       required this.datas,
       this.selectedIndex = 0,
@@ -21,13 +21,13 @@ class PieChartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CanvasTouchDetector(
       builder: (context) => CustomPaint(
-        child: Center(),
         painter: _Draw(
             datas: datas,
             chartWidth: chartWidth,
             selectedIndex: selectedIndex,
             onSelectedIndexChange: onSelectedIndexChange,
             context: context),
+        child: const Center(),
       ),
     );
   }
@@ -51,10 +51,10 @@ class _Draw extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final TouchyCanvas myCanvas = TouchyCanvas(context, canvas);
 
-    Offset center = Offset(size.width / 2, size.height / 2);
-    double radius = min(size.width / 2, size.height / 2);
+    final Offset center = Offset(size.width / 2, size.height / 2);
+    final double radius = min(size.width / 2, size.height / 2);
 
-    var paint = Paint()
+    final Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = chartWidth / 2;
 
@@ -63,7 +63,11 @@ class _Draw extends CustomPainter {
     late final Color? selectedSecondaryColor;
 
     double total = 0;
-    datas.forEach((data) => total += data.value);
+
+    for (final PieChartData data in datas) {
+      total += data.value;
+    }
+
     double startRadian = -pi / 2;
 
     for (int index = 0; index < datas.length; index++) {

@@ -13,16 +13,16 @@ class _PieChartExampleState extends State<PieChartExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pie Chart"),
+        title: const Text("Pie Chart"),
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Center(
-                child: Container(
+                child: SizedBox(
                   width: 200,
                   height: 200,
                   child: PieChartWidget(

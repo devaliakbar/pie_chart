@@ -7,16 +7,15 @@ class LineChartExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Line Chart"),
+        title: const Text("Line Chart"),
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
-                alignment: Alignment.center,
                 child: SizedBox(
                   width: 140,
                   height: 100,
@@ -24,57 +23,57 @@ class LineChartExample extends StatelessWidget {
                     data: [
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 1),
+                            const Duration(days: 1),
                           ),
                           value: 0),
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 2),
+                            const Duration(days: 2),
                           ),
                           value: 3),
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 3),
+                            const Duration(days: 3),
                           ),
                           value: 0),
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 4),
+                            const Duration(days: 4),
                           ),
                           value: 3),
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 5),
+                            const Duration(days: 5),
                           ),
                           value: 1),
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 6),
+                            const Duration(days: 6),
                           ),
                           value: 8),
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 7),
+                            const Duration(days: 7),
                           ),
                           value: 2),
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 8),
+                            const Duration(days: 8),
                           ),
                           value: 6),
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 9),
+                            const Duration(days: 9),
                           ),
                           value: 9),
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 10),
+                            const Duration(days: 10),
                           ),
                           value: 6),
                       ChartValue(
                           date: DateTime.now().add(
-                            Duration(days: 11),
+                            const Duration(days: 11),
                           ),
                           value: 9),
                     ],

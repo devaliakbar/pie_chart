@@ -42,7 +42,7 @@ class BarChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double _blockSizeVertical = MediaQuery.of(context).size.height / 100;
-    double _containerHeight = height ?? 11 * _blockSizeVertical;
+    final double _containerHeight = height ?? 11 * _blockSizeVertical;
 
     final double _blockSizeHorizontal = MediaQuery.of(context).size.width / 100;
 
@@ -50,12 +50,12 @@ class BarChartWidget extends StatelessWidget {
 
     final double _spacing = spacing ?? 1.5 * _blockSizeHorizontal;
 
-    return Container(
+    return SizedBox(
       height: _containerHeight,
       child: ListView.builder(
         itemCount: data.length,
         shrinkWrap: true,
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
           return Column(
@@ -78,8 +78,8 @@ class BarChartWidget extends StatelessWidget {
   }
 
   double _reMap(double x, {required double inMin, required double inMax}) {
-    double outMin = 0.1;
-    double outMax = 1.0;
+    const double outMin = 0.1;
+    const double outMax = 1.0;
 
     return (((outMax - outMin) * (x - inMin)) / (inMax - inMin)) + outMin;
   }
