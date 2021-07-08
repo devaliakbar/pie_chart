@@ -1,3 +1,4 @@
+import 'package:chart/bar_chart/bar_chart_example.dart';
 import 'package:chart/line_chart/line_chart_example.dart';
 import 'package:chart/pie_chart/pie_chart_example.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,17 @@ class Menu extends StatelessWidget {
                   );
                 },
                 child: Text("Line Chart"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BarChartExample(),
+                    ),
+                  );
+                },
+                child: Text("Bar Chart"),
               )
             ],
           ),
