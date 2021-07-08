@@ -110,7 +110,7 @@ class _Draw extends CustomPainter {
       paint.color = selectedColor.withOpacity(0.2);
     }
 
-    canvas.drawArc(
+    myCanvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       selectedStartRadian,
       selectedSweepRadian,
