@@ -1,36 +1,43 @@
+import 'package:chart/models/chart_value.dart';
 import 'package:flutter/material.dart';
 
 class BarChartWidget extends StatelessWidget {
+  final List<ChartValue> data;
   final Color barColor;
   final double? height;
   final double? barWidth;
   final double? spacing;
   final double? barRadius;
+
+  late final List<double> _data;
   BarChartWidget(
-      {this.barColor = Colors.grey,
+      {required this.data,
+      this.barColor = Colors.grey,
       this.height,
       this.barWidth,
       this.spacing,
-      this.barRadius});
+      this.barRadius}) {
+    final List<double> _dataArr = [];
 
-  final List<double> data = [
-    0.1,
-    0.15,
-    0.1,
-    0.3,
-    0.8,
-    0.9,
-    1,
-    0.7,
-    0.4,
-    0.6,
-    0.5,
-    0.8,
-    0.1,
-    0.15,
-    0.1,
-    0.3,
-  ];
+    double min = data[0].value;
+    double max = data[0].value;
+
+    _dataArr.add(data[0].value);
+
+    for (int index = 1; index < data.length; index++) {
+      _dataArr.add(data[index].value);
+
+      if (min > data[index].value) {
+        min = data[index].value;
+      }
+
+      if (max < data[index].value) {
+        max = data[index].value;
+      }
+    }
+
+    _data = _dataArr.map((e) => _reMap(e, inMin: min, inMax: max)).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +63,7 @@ class BarChartWidget extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.only(right: _spacing),
-                height: data[index] * _containerHeight,
+                height: _data[index] * _containerHeight,
                 width: _barWidth,
                 decoration: BoxDecoration(
                   color: barColor,
@@ -68,5 +75,12 @@ class BarChartWidget extends StatelessWidget {
         },
       ),
     );
+  }
+
+  double _reMap(double x, {required double inMin, required double inMax}) {
+    double outMin = 0.1;
+    double outMax = 1.0;
+
+    return (((outMax - outMin) * (x - inMin)) / (inMax - inMin)) + outMin;
   }
 }
