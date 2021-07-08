@@ -1,8 +1,9 @@
+import 'package:chart/models/chart_value.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class LineChartWidget extends StatelessWidget {
-  final List<LineChartValue> data;
+  final List<ChartValue> data;
   final Color barColor;
   final double barWidth;
 
@@ -69,11 +70,4 @@ class LineChartWidget extends StatelessWidget {
 
     return returnSpot;
   }
-}
-
-class LineChartValue {
-  final DateTime date;
-  final double value;
-
-  LineChartValue({required this.date, required this.value});
 }

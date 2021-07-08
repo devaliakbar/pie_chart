@@ -1,4 +1,5 @@
 import 'package:chart/line_chart/line_chart_widget.dart';
+import 'package:chart/models/chart_value.dart';
 import 'package:flutter/material.dart';
 
 class LineChartExample extends StatelessWidget {
@@ -21,57 +22,57 @@ class LineChartExample extends StatelessWidget {
                   height: 100,
                   child: LineChartWidget(
                     data: [
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 1),
                           ),
                           value: 0),
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 2),
                           ),
                           value: 3),
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 3),
                           ),
                           value: 0),
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 4),
                           ),
                           value: 3),
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 5),
                           ),
                           value: 1),
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 6),
                           ),
                           value: 8),
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 7),
                           ),
                           value: 2),
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 8),
                           ),
                           value: 6),
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 9),
                           ),
                           value: 9),
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 10),
                           ),
                           value: 6),
-                      LineChartValue(
+                      ChartValue(
                           date: DateTime.now().add(
                             Duration(days: 11),
                           ),
